@@ -7,7 +7,12 @@ node.default['redisio']['servers'] = [
     name: nil,
     address: node[id]['listen']['address'],
     port: node[id]['listen']['port'],
-    requirepass: secret.get('redis:password', required: false, default: nil)
+    requirepass: secret.get(
+      'redis:password',
+      required: false,
+      default: nil,
+      prefix_fqdn: node[id]['secret']['prefix_fqdn'].nil? ? node['secret']['prefix_fqdn'] : node[id]['secret']['prefix_fqdn']
+    )
   }
 ]
 
